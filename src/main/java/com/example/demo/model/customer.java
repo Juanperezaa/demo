@@ -9,8 +9,8 @@ public class customer {
 
     
 
-    public customer(int iD, String name, String username, String password) {
-        ID = iD;
+    public customer(int ID, String name, String username, String password) {
+        this.ID = ID;
         this.name = name;
         this.username = username;
         this.password = password;

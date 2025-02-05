@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.customer;
@@ -20,12 +22,12 @@ public class CustomerRestController {
         new customer(678,"Jai","JaiU","JaiP")
     ));
 
-    @GetMapping("customers")
+    @GetMapping("/customers")
     public List<customer> getCustomers(){
         return customers;
     }
 
-    @GetMapping("customers/{username}")
+    @GetMapping("/customers/{username}")
     public customer getClient(@PathVariable String username){
         for (customer c : customers){
             if (c.getUsername().equalsIgnoreCase(username)){
@@ -33,5 +35,11 @@ public class CustomerRestController {
             }
         }
         return null;
+    }
+
+    @PostMapping("/customers")
+    public customer postCustomer(@RequestBody customer customer){
+        customers.add(customer);
+        return customer;
     }
 }
