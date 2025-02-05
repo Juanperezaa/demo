@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.customer;
 
 @RestController
+@RequestMapping("/customers")
 public class CustomerRestController {
 
     private List<customer> customers = new ArrayList<>(Arrays.asList(
@@ -25,12 +28,14 @@ public class CustomerRestController {
         new customer(678,"Jai","JaiU","JaiP")
     ));
 
-    @GetMapping("/customers")
+    @RequestMapping(method = RequestMethod.GET)
+    //@GetMapping
     public List<customer> getCustomers(){
         return customers;
     }
 
-    @GetMapping("/customers/{username}")
+    @RequestMapping(value = "/{username}", method = RequestMethod.GET)
+    //@GetMapping("/{username}")
     public customer getClient(@PathVariable String username){
         for (customer c : customers){
             if (c.getUsername().equalsIgnoreCase(username)){
@@ -40,13 +45,15 @@ public class CustomerRestController {
         return null;
     }
 
-    @PostMapping("/customers")
+    @RequestMapping(method = RequestMethod.POST)
+    //@PostMapping()
     public customer postCustomer(@RequestBody customer customer){
         customers.add(customer);
         return customer;
     }
 
-    @PutMapping("/customers")
+    @RequestMapping(method = RequestMethod.PUT)
+    //@PutMapping()
     public customer putCustomer(@RequestBody customer customer){
         for(customer c: customers){
             if(c.getID() == customer.getID()){
@@ -60,7 +67,8 @@ public class CustomerRestController {
         return null;
     }
 
-    @DeleteMapping("/customers/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    //@DeleteMapping("/{id}")
     public customer deleteCustomer(@PathVariable int id){
         for(customer c: customers){
             if(c.getID()==id){
@@ -72,7 +80,8 @@ public class CustomerRestController {
         return null;
     }
 
-    @PatchMapping("/customers")
+    @RequestMapping(method = RequestMethod.PATCH)
+    //@PatchMapping()
     public customer patchCustomer(@RequestBody customer customer){
         for(customer c: customers){
             if(c.getID()==customer.getID()){
@@ -91,4 +100,6 @@ public class CustomerRestController {
         }
         return null;
     }
+
+
 }
