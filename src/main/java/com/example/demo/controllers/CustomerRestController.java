@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.customer;
@@ -19,8 +20,18 @@ public class CustomerRestController {
         new customer(678,"Jai","JaiU","JaiP")
     ));
 
-    @GetMapping("clientes")
+    @GetMapping("customers")
     public List<customer> getCustomers(){
         return customers;
+    }
+
+    @GetMapping("customers/{username}")
+    public customer getClient(@PathVariable String username){
+        for (customer c : customers){
+            if (c.getUsername().equalsIgnoreCase(username)){
+                return c;
+            }
+        }
+        return null;
     }
 }
