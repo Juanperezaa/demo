@@ -1,9 +1,11 @@
 package com.example.demo.controllers;
 
 import java.util.Arrays;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.boot.autoconfigure.jersey.JerseyProperties.Servlet;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.demo.model.customer;
 
@@ -48,11 +51,17 @@ public class CustomerRestController {
     }
 
     //@RequestMapping(method = RequestMethod.POST)
-    @PostMapping()
+    @PostMapping
     public ResponseEntity <?> postCustomer(@RequestBody customer customer){
         customers.add(customer);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body("Customer created succesfully with id "+customer.getID());
+        URI locationUri = ServletUriComponentsBuilder
+                    .fromCurrentRequest()
+                    .path("/{username}")
+                    .buildAndExpand(customer.getUsername())
+                    .toUri();
+
+        return ResponseEntity.created(locationUri).build();
     }
 
     //@RequestMapping(method = RequestMethod.PUT)
@@ -64,10 +73,10 @@ public class CustomerRestController {
                 c.setUsername(customer.getUsername());
                 c.setPassword(customer.getPassword());
 
-                return ResponseEntity.ok("Customer updated succesfully");
+                return ResponseEntity.noContent().build();
             }
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found with ID "+ customer.getID());
+        return ResponseEntity.notFound().build();
     }
 
     //@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -77,14 +86,14 @@ public class CustomerRestController {
             if(c.getID()==id){
                 customers.remove(c);
 
-                return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Customer deleted with ID "+ c.getID());
+                return ResponseEntity.noContent().build();
             }
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found with id "+ id);
+        return ResponseEntity.notFound().build();
     }
 
     //@RequestMapping(method = RequestMethod.PATCH)
-    @PatchMapping()
+    @PatchMapping
     public ResponseEntity<?> patchCustomer(@RequestBody customer customer){
         for(customer c: customers){
             if(c.getID()==customer.getID()){
