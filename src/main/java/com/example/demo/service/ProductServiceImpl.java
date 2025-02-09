@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.model.Product;
 
-@Service
+@Service("listResourceService")
 public class ProductServiceImpl implements ProductService {
 
     List<Product> productsList = new ArrayList<>(Arrays.asList(

@@ -10,8 +10,8 @@ import com.example.demo.model.Product;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@Primary
-@Service
+
+@Service("jsonResourceService")
 public class ProductServiceJSONImpl implements ProductService {
 
     @Override
