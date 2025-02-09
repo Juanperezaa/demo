@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.Product;
 import com.example.demo.service.ProductService;
-import com.example.demo.service.ProductsServiceImpl;
+import com.example.demo.service.ProductServiceImpl;
 
 @RestController
 @RequestMapping("/products")

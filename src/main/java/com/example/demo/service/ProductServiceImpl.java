@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.model.Product;
 
 @Service
-public class ProductsServiceImpl implements ProductService {
+public class ProductServiceImpl implements ProductService {
 
     List<Product> productsList = new ArrayList<>(Arrays.asList(
         new Product(1, "Laptop", 799.99, 10),
