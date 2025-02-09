@@ -26,14 +26,8 @@ import com.example.demo.model.customer;
 @RequestMapping("/customers")
 public class CustomerRestController {
 
-    private List<customer> customers = new ArrayList<>(Arrays.asList(
-        new customer(123,"Alex","AlexU","AlexP"),
-        new customer(234,"Sebas","SebasU","SebasP"),
-        new customer(456,"Carl","CarlU","CarlP"),
-        new customer(678,"Jai","JaiU","JaiP")
-    ));
-
-    //@RequestMapping(method = RequestMethod.GET)
+   
+    //@RequestMapping(method = RequestMethod.GET)src/main/java/com/example/demo/controllers/CustomerRestController.java
     @GetMapping
     public ResponseEntity<List<customer>> getCustomers(){
         return ResponseEntity.ok(customers);
