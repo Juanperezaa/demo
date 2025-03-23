@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.Product;
 
-@Service("listResourceService")
+@Service
+@ConditionalOnProperty(name = "service.products", havingValue = "listService")
 public class ProductServiceImpl implements ProductService {
 
     List<Product> productsList = new ArrayList<>(Arrays.asList(
@@ -22,4 +24,15 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> getProducts(){
         return productsList;
     }
+
+    @Override
+    public Product getProductById(int id) {
+        for(Product p: productsList){
+            if(p.getId()==id){
+                return p;
+            }
+        }
+        return null;
+    }
+    
 }

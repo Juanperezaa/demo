@@ -7,4 +7,5 @@ import com.example.demo.model.Product;
 public interface ProductService {
 
     public List<Product> getProducts();
+    public Product getProductById(int id);
 }
