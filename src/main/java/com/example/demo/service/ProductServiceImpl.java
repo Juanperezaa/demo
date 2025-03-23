@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.Product;
@@ -52,6 +53,37 @@ public class ProductServiceImpl implements ProductService {
     public Product createProduct(Product product) {
         productsList.add(product);
         return product;
+    }
+
+    @Override
+    public Product deleteProduct(int id) {
+        for(Product p:productsList){
+            if(p.getId()==id){
+                productsList.remove(p);
+
+                return p;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public boolean patchProduct(Product product) {
+        for(Product p:productsList){
+            if(p.getId()==product.getId()){
+                if(product.getName()!=null){
+                    p.setName(product.getName());
+                }
+                if(product.getPrice()!=null){
+                    p.setPrice(product.getPrice());
+                }
+                if(product.getStock()!=null){
+                    p.setStock(product.getStock());
+                }
+                return true;
+            }
+        }
+        return false;
     }
     
 }

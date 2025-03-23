@@ -88,5 +88,17 @@ public class ProductServiceJSONImpl implements ProductService {
         throw new UnsupportedOperationException("Unimplemented method 'createProduct'");
     }
 
+    @Override
+    public Product deleteProduct(int id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deleteProduct'");
+    }
+
+    @Override
+    public boolean patchProduct(Product product) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'patchProduct'");
+    }
+
 
 }

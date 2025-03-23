@@ -10,4 +10,6 @@ public interface ProductService {
     public Product getProductById(int id);
     public boolean updateProduct(Product product);
     public Product createProduct(Product product);
+    public Product deleteProduct(int id);
+    public boolean patchProduct(Product product);
 }

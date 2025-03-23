@@ -8,7 +8,9 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -63,5 +65,21 @@ public class ProductController {
                     .buildAndExpand(createdProduct.getId()).toUri();
         
         return ResponseEntity.created(locationUri).build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteProduct(@PathVariable int id){
+        if(productService.deleteProduct(id)!=null){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @PatchMapping
+    public ResponseEntity<?> patchProduct(@RequestBody Product product){
+        if(productService.patchProduct(product)){
+            return ResponseEntity.ok("Product modified with id "+product.getId());
+        }
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found with id "+ product.getId());
     }
 }
