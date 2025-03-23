@@ -34,5 +34,24 @@ public class ProductServiceImpl implements ProductService {
         }
         return null;
     }
+
+    @Override
+    public boolean updateProduct(Product product) {
+        for(Product p: productsList){
+            if(p.getId()==product.getId()){
+                p.setName(product.getName());
+                p.setPrice(product.getPrice());
+                p.setStock(product.getStock());
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public Product createProduct(Product product) {
+        productsList.add(product);
+        return product;
+    }
     
 }

@@ -18,6 +18,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @ConditionalOnProperty(name = "service.products", havingValue = "jsonService")
 public class ProductServiceJSONImpl implements ProductService {
 
+   
+
     @Override
     public List<Product> getProducts() {
         List<Product> products;
@@ -51,6 +53,39 @@ public class ProductServiceJSONImpl implements ProductService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public boolean updateProduct(Product product) {
+        List<Product> products;
+        try {
+            products = new ObjectMapper()
+                        .readValue(this.getClass()
+                        .getResourceAsStream("/products/products.json"),
+                        new TypeReference<List<Product>>(){});
+                        for(Product p: products);
+
+            for(Product p: products){
+                if(p.getId()==product.getId()){
+                    p.setName(product.getName());
+                    p.setPrice(product.getPrice());
+                    p.setStock(product.getStock());
+                    return true;
+                }
+            }
+            return false;
+
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+       
+    }
+
+    @Override
+    public Product createProduct(Product product) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'createProduct'");
     }
 
 
